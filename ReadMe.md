@@ -19,7 +19,9 @@ Tested in an `Ubuntu 18.04` environment emulated via a `Windows Subsystem for Li
 
 #### Third-Party Software
 
-This implementation uses the [SNAP Software v6.0](https://snap.stanford.edu/snap/download.html). The [generalised implementation of Louvain](https://sourceforge.net/projects/louvain/files/GenericLouvain/) has been adapted for implementing the partitioning and postprocessing steps. Building the MAM of directed networks is done using the [buildMAM software](https://github.com/luleg/MotifAdjacencyMatrix) .
+* This implementation uses the [SNAP Software v6.0](https://snap.stanford.edu/snap/download.html), e.g. for graph structure and time management.
+* The [generalised implementation of Louvain](https://sourceforge.net/projects/louvain/files/GenericLouvain/) has been adapted for implementing the partitioning and postprocessing steps.
+* Building the MAM of directed networks is done using the [buildMAM software](https://github.com/luleg/MotifAdjacencyMatrix).
 
 ### Installation
 
@@ -37,7 +39,11 @@ cd ..
 
 The following command in the root folder explains how to run the software.
 ```bash
-./src/BuildingMAM/buildMAM -h
+./src/Pipeline/pipeline -h
+```
+To keep it short, the software can be used for six different tasks:
+```bash
+./src/Pipeline/pipeline -h //Build the MAM, partition it, postprocess single nodes.
 ```
 
 #### Detailed Usage
