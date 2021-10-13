@@ -37,7 +37,7 @@ cd ..
 
 ### Usage
 
-To keep it short, the software can be used for six different tasks, and the each of the six following command in the root folder explains how to run one of these tasks.
+To keep it short, the software can be used for six different tasks, and the each of the six following commands in the root folder explains how to run one of these tasks.
 
 ```bash
 ./src/Pipeline/pipeline -h         # Task: Build a MAM, partition it, postprocess disconnected nodes.
@@ -49,6 +49,10 @@ To keep it short, the software can be used for six different tasks, and the each
 ```
 
 #### Detailed Usage
+
+A number of arguments must/can be used for each task. The table below provides a summary of these arguments, with a brief description.
+<img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Visual/Pics/Params.png" width="100%">
+
 
 <img align="right" src="https://github.com/luleg/MotifAdjacencyMatrix/blob/main/Images/BiFan.png" width="8%" height="8%">
 
