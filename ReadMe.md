@@ -37,19 +37,15 @@ cd ..
 
 ### Usage
 
-The following command in the root folder explains how to run the software.
-```bash
-./src/Pipeline/pipeline -h
-```
-To keep it short, the software can be used for six different tasks, and the following command in the root folder explains how to run these tasks.
+To keep it short, the software can be used for six different tasks, and the each of the six following command in the root folder explains how to run one of these tasks.
 
 ```bash
-./src/Pipeline/pipeline -h         # Build a MAM, partition it, postprocess disconnected nodes.
-./src/Pipeline/pipeline -ma -h     # Build the MAM.
-./src/Pipeline/pipeline -pa -h     # Partition a network/MAM.
-./src/Pipeline/pipeline -po -h     # Postprocess disconnected nodes.
-./src/Pipeline/pipeline -mapa -h   # Build a MAM and partition it.
-./src/Pipeline/pipeline -papo -h   # Partition a MAM and postprocess disconnected nodes.
+./src/Pipeline/pipeline -h         # Task: Build a MAM, partition it, postprocess disconnected nodes.
+./src/Pipeline/pipeline -ma -h     # Task: Build a MAM.
+./src/Pipeline/pipeline -pa -h     # Task: Partition a network/MAM.
+./src/Pipeline/pipeline -po -h     # Task: Postprocess disconnected nodes.
+./src/Pipeline/pipeline -mapa -h   # Task: Build a MAM and partition it.
+./src/Pipeline/pipeline -papo -h   # Task: Partition a MAM and postprocess disconnected nodes.
 ```
 
 #### Detailed Usage
