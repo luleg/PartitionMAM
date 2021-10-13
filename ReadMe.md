@@ -7,15 +7,7 @@ This is a C++ software for partitioning directed networks based on their Motif A
 Namely,
 1. The MAM of the directed network is built using the [buildMAM software](https://github.com/luleg/MotifAdjacencyMatrix).
 2. This MAM is partitioned via the [Louvain algorithm](https://arxiv.org/pdf/0803.0476.pdf).
-3. The nodes that are disconnected in the MAM are postprocessing using a home made adaptation of the Louvain algorithm.
-
-* All 3-node motifs (Triangles and Wedges),
-* All 4-node motifs containing a 4-node cycle (Quadrangles),
-* It can also build an undirected network from a directed one.
-
-The exhaustive list of admissible motifs to be found in *GraphletIdentifiers.pdf*.
-
-## Using the Software
+3. The disconnected nodes from the MAM are postprocessing using a home made adaptation of the Louvain algorithm.
 
 ### Requirements
 
@@ -23,7 +15,11 @@ A bash shell and a `g++` compiler are enough to compile and use the software.
 
 Tested in an `Ubuntu 18.04` environment emulated via a `Windows Subsystem for Linux 1`, with `gcc version 7.5.0` as compiler.
 
-*While this implementation uses the [SNAP Software v6.0](https://snap.stanford.edu/snap/download.html), the present release contains the required files from the SNAP, and can be used as a standalone.*
+*The present release contains the required files from third-party software, and can be used as a standalone.*
+
+#### Third-Party Software
+
+This implementation uses the [SNAP Software v6.0](https://snap.stanford.edu/snap/download.html). The [generalised implementation of Louvain](https://sourceforge.net/projects/louvain/files/GenericLouvain/) has been adapted for implementing the partitioning and postprocessing steps. Building the MAM of directed networks is done using the [buildMAM software](https://github.com/luleg/MotifAdjacencyMatrix) .
 
 ### Installation
 
@@ -32,7 +28,7 @@ On a bash command, at the root of the folder:
 ```bash
 cd src/UtilsSNAP
 make
-cd ../BuildingMAM
+cd ../Pipeline
 make
 cd ..
 ```
