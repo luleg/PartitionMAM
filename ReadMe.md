@@ -85,7 +85,7 @@ More precisely:
 
 * Parameter argument ```-c ResParamLouvain``` is the modularity resolution parameter to be used in Louvain.
 
-:bulb: It is expected that the highest the resolution parameter, the smallest the communities. Classic values are between 1 and 2.
+:bulb: It is expected that the highest the resolution parameter, the smallest the communities. Classic values lie between 1 and 2.
 
 * Parameter argument ```-cc ResParamPostproc``` is the modularity resolution parameter to be used in the postprocessing step.
 
