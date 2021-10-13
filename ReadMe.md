@@ -1,33 +1,33 @@
 # Partitioning Directed Networks Based on their Motif Adjacency Matrices
 
-This is a C++ software for partitioning directed networks based on their Motif Adjacency Matrices (MAM). Main steps of the software steps are illustrated below.
+This is a C++ software for partitioning directed networks based on their Motif Adjacency Matrices (MAM). Main steps of the software are illustrated below.
 
 <img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Visual/Pics/AlgoSimple.png" width="100%">
 
 Namely,
 1. The MAM of the directed network is built using the [buildMAM software](https://github.com/luleg/MotifAdjacencyMatrix).  The doc *GraphletIdentifiers.pdf* lists all the motifs upon which a MAM can be built.
 2. This MAM then is partitioned via the [Louvain algorithm](https://arxiv.org/pdf/0803.0476.pdf).
-3. The disconnected nodes from the MAM are postprocessing using a home made adaptation of the Louvain algorithm.
+3. The disconnected nodes from the MAM are postprocessed by a homemade adaptation of Louvain.
 
-### A Word about the postprocessing Step
+## A Word about the Postprocessing Step
 
 The postprocessing is done by applying the Louvain algorithm on the directed network, symmetrised by forgetting edge directions, and in which nodes that belong to a same cluster have been merged into a unique meta-node. An additional constraint forbids the algorithm to put in a same cluster of the final partition two meta-nodes containing more than *k* nodes from the initial network.
 
-### Requirements
+## Requirements
 
 A bash shell and a `g++` compiler are enough to compile and use the software.
 
-Tested in an `Ubuntu 18.04` environment emulated via a `Windows Subsystem for Linux 1`, with `gcc version 7.5.0` as compiler.
+Tested in an `Ubuntu 18.04` environment emulated via a `Windows Subsystem for Linux 1`, with `gcc version 7.5.0` as a compiler.
 
 *The present release contains the required files from third-party software, and can be used as a standalone.*
 
-#### Third-Party Software
+### Third-Party Software
 
 * This implementation uses the [SNAP Software v6.0](https://snap.stanford.edu/snap/download.html), e.g. for graph structure and time management.
-* The [generalised implementation of Louvain](https://sourceforge.net/projects/louvain/files/GenericLouvain/) has been adapted for implementing the partitioning and postprocessing steps.
+* The partitioning and postprocessing steps have been derived fron the [implementation of generic Louvain](https://sourceforge.net/projects/louvain/files/GenericLouvain/).
 * Building the MAM of directed networks is done using the [buildMAM software](https://github.com/luleg/MotifAdjacencyMatrix).
 
-### Installation
+## Installation
 
 On a bash command, at the root of the folder:
 
@@ -36,26 +36,28 @@ cd src/UtilsSNAP
 make
 cd ../Pipeline
 make
-cd ..
+cd ../..
 ```
 
-### Usage
+## Usage
 
-To keep it short, the software can be used for six different tasks, and the each of the six following commands in the root folder explains how to run one of these tasks.
+To keep it short, the software can be used for six different tasks, and each of the six following commands in the root folder explains how to run one of these tasks.
 
 ```bash
-./src/Pipeline/pipeline -h         # Task: Build a MAM, partition it, postprocess disconnected nodes.
 ./src/Pipeline/pipeline -ma -h     # Task: Build a MAM.
 ./src/Pipeline/pipeline -pa -h     # Task: Partition a network/MAM.
 ./src/Pipeline/pipeline -po -h     # Task: Postprocess disconnected nodes.
 ./src/Pipeline/pipeline -mapa -h   # Task: Build a MAM and partition it.
 ./src/Pipeline/pipeline -papo -h   # Task: Partition a MAM and postprocess disconnected nodes.
+./src/Pipeline/pipeline -h         # Task: Build a MAM, partition it, postprocess disconnected nodes.
 ```
 
-#### Detailed Usage
+### Detailed Usage
 
 A number of arguments must/can be used for each task. The table below provides a summary of these arguments, with a brief description.
 <img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Visual/Pics/Params.png" width="100%">
+
+More precisely:
 
 * The flags ```-ma```, ```-pa```, ```-po```, are used to indicate the kind of atomic tasks one wants to perform. They can be merged to perform non atomic tasks.
 
@@ -69,6 +71,8 @@ A number of arguments must/can be used for each task. The table below provides a
 * Output argument ```-omam PathToMAM``` is the path to the file in which the computed MAM will be stored.
 * Output argument ```-opart PathToPartition``` is the path to the file in which the computed partition will be stored.
 * Output argument ```-oppart PathToPartition``` is the path to the file in which the partial partition (i.e. without postprocessing of disconnected nodes) will be stored, when both partial and full partitions are computed.
+
+:warning: For the output arguments, if the file already exists, its content is destroyed.
 
 * Parameter argument ```-m MotifIdentifier``` indicates the motif to use to build the MAM. See the doc *GraphletIdentifiers.pdf* for the list of all admissible motifs, along with their identifier.
 * Parameter argument ```-nth NumberOfThreads``` is the number of threads to use for building the MAM.
