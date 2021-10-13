@@ -5,8 +5,8 @@ This is a C++ software for partitioning directed networks based on their Motif A
 <img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Visual/Pics/AlgoSimple.png" width="100%">
 
 Namely,
-1. The MAM of the directed network is built using the [buildMAM software](https://github.com/luleg/MotifAdjacencyMatrix).
-2. This MAM is partitioned via the [Louvain algorithm](https://arxiv.org/pdf/0803.0476.pdf).
+1. The MAM of the directed network is built using the [buildMAM software](https://github.com/luleg/MotifAdjacencyMatrix).  The doc *GraphletIdentifiers.pdf* lists all the motifs upon which a MAM can be built.
+2. This MAM then is partitioned via the [Louvain algorithm](https://arxiv.org/pdf/0803.0476.pdf).
 3. The disconnected nodes from the MAM are postprocessing using a home made adaptation of the Louvain algorithm.
 
 ### Requirements
@@ -53,8 +53,19 @@ To keep it short, the software can be used for six different tasks, and the each
 A number of arguments must/can be used for each task. The table below provides a summary of these arguments, with a brief description.
 <img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Visual/Pics/Params.png" width="100%">
 
+<img align="right" src="https://github.com/luleg/MotifAdjacencyMatrix/blob/main/Images/toyGraph.png" width="15%" height="15%">
 
-<img align="right" src="https://github.com/luleg/MotifAdjacencyMatrix/blob/main/Images/BiFan.png" width="8%" height="8%">
+* The flags ```-ma```, ```-pa```, ```-po```, are used to indicate the kind of atomic tasks one wants to perform. They can be merged to perform non atomic tasks.
+* Input argument ```-igraph PathToDirectedGraph``` provides the path to the directed graph, that must be an edgelist with integer nodes, with only two columns, as shown on the right.
+* Input argument ```-isym PathToSymmetrisedGraph``` can be used instead of ```-igraph```, e.g. when the symmetrised graph has been computed, or when working solely on a MAM.
+* Input argument ```-imam PathToMAM``` provides the path to an already computed MAM.
+* Input argument ```-ipart PathToPartition``` provides the path to an already computed partition.
+* Output argument ```-omam PathToMAM``` is the path to the file in which the computed MAM will be stored.
+* Output argument ```-opart PathToPartition``` is the path to the file in which the computed partition will be stored.
+* Output argument ```-oppart PathToPartition``` is the path to the file in which the partial partition (i.e. without postprocessing of disconnected nodes) will be stored, when both partial and full partitions are computed.
+
+
+
 
 The software comes with examples in the folder *Data*. Assume we aim to build the MAM of the network *Data/Hierarchy.nwk* upon the Bifan motif (shown on the right), and store the output MAM in a file *Data/Hierarchy_Bifan.txt*. In the root folder:
 
@@ -64,7 +75,7 @@ The software comes with examples in the folder *Data*. Assume we aim to build th
 
 where:
 
-<img align="right" src="https://github.com/luleg/MotifAdjacencyMatrix/blob/main/Images/toyGraph.png" width="15%" height="15%">
+
 
 * ```-i Data/Hierarchy.nwk``` provides the path to the input network.
 
