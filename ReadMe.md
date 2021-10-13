@@ -1,13 +1,13 @@
 # Partitioning Directed Networks Based on their Motif Adjacency Matrices
 
-This is a C++ software for partitioning directed networks based on their Motif Adjacency Matrices (MAM).
-Main steps of the software steps are illustrated below.
+This is a C++ software for partitioning directed networks based on their Motif Adjacency Matrices (MAM). Main steps of the software steps are illustrated below.
 
-<img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Visual/Pics/AlgoSimple.png" width="8%" height="8%">
+<img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Visual/Pics/AlgoSimple.png" width="100%">
 
-1. Building the
-2. Caca
-3. Pipi
+Namely,
+1. The MAM of the directed network is built using the [buildMAM software](https://github.com/luleg/MotifAdjacencyMatrix).
+2. This MAM is partitioned via the [Louvain algorithm](https://arxiv.org/pdf/0803.0476.pdf).
+3. The nodes that are disconnected in the MAM are postprocessing using a home made adaptation of the Louvain algorithm.
 
 * All 3-node motifs (Triangles and Wedges),
 * All 4-node motifs containing a 4-node cycle (Quadrangles),
