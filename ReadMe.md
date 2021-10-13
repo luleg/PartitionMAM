@@ -53,9 +53,8 @@ To keep it short, the software can be used for six different tasks, and the each
 A number of arguments must/can be used for each task. The table below provides a summary of these arguments, with a brief description.
 <img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Visual/Pics/Params.png" width="100%">
 
-<img align="right" src="https://github.com/luleg/MotifAdjacencyMatrix/blob/main/Images/toyGraph.png" width="15%" height="15%">
-
 * The flags ```-ma```, ```-pa```, ```-po```, are used to indicate the kind of atomic tasks one wants to perform. They can be merged to perform non atomic tasks.
+<img align="right" src="https://github.com/luleg/MotifAdjacencyMatrix/blob/main/Images/toyGraph.png" width="15%" height="15%">
 * Input argument ```-igraph PathToDirectedGraph``` provides the path to the directed graph, that must be an edgelist with integer nodes, with only two columns, as shown on the right.
 * Input argument ```-isym PathToSymmetrisedGraph``` can be used instead of ```-igraph```, e.g. when the symmetrised graph has been computed, or when working solely on a MAM.
 * Input argument ```-imam PathToMAM``` provides the path to an already computed MAM.
