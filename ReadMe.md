@@ -2,7 +2,7 @@
 
 This is a C++ software for partitioning directed networks based on their Motif Adjacency Matrices (MAM). Main steps of the software are illustrated below.
 
-<img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Visual/Pics/AlgoSimple.png" width="100%">
+<img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Images/AlgoSimple.png" width="100%">
 
 Namely,
 1. The MAM of the directed network is built using the [buildMAM software](https://github.com/luleg/MotifAdjacencyMatrix).  The doc *GraphletIdentifiers.pdf* lists all the motifs upon which a MAM can be built.
@@ -55,7 +55,7 @@ To keep it short, the software can be used for six different tasks, and each of 
 ### Detailed Usage
 
 A number of arguments must/can be used for each task. The table below provides a summary of these arguments, with a brief description.
-<img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Visual/Pics/Params.png" width="100%">
+<img align="center" src="https://github.com/luleg/PartitionMAM/blob/main/Images/Params.png" width="100%">
 
 More precisely:
 
