@@ -163,7 +163,7 @@ void writeFinalPart(TStr FilePart){
 
   FILE * finput = fopen(FilePart.CStr(),"r");
   if (finput == NULL){
-    fprintf(stderr,"The file %s does not exist\n", FilePart);
+    fprintf(stderr,"The file %s does not exist\n", FilePart.CStr());
     exit(EXIT_FAILURE);
   }
 
@@ -566,7 +566,7 @@ void usage(){
 int readFromFile(TStr file){
   FILE * Finput = fopen(file.CStr(),"r");
   if (Finput == NULL){
-    printf("ERROR :: FILE %S NOT FOUND\n",file);
+    printf("ERROR :: FILE %S NOT FOUND\n",file.CStr());
     help = true;
     return 1;
   }
@@ -579,7 +579,7 @@ int readFromFile(TStr file){
   buffer = (char*) malloc (sizeof(char)*lSize);
   result = fread (buffer,1,lSize,Finput);
   if (result != lSize) {
-    printf ("ERROR :: PROBLEM WHILE READING FILE %S\n",file);
+    printf ("ERROR :: PROBLEM WHILE READING FILE %S\n",file.CStr());
     help = true;
     return 1;
   }
