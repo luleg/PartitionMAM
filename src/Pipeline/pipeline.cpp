@@ -41,10 +41,156 @@ bool initial_part = false;
 TSecTm TStart;
 TExeTm ExeTm;
 
+int readFromFile(char* file){
+  FILE * Finput = fopen(file,"r");
+  if (Finput == NULL){
+    printf("ERROR :: FILE %S NOT FOUND\n",file);
+    help = true;
+    return 1;
+  }
+  long lSize;
+  char * buffer;
+  size_t result;
+  fseek (Finput , 0 , SEEK_END);
+  lSize = ftell (Finput);
+  rewind (Finput);
+  buffer = (char*) malloc (sizeof(char)*lSize);
+  result = fread (buffer,1,lSize,Finput);
+  if (result != lSize) {
+    printf ("ERROR :: PROBLEM WHILE READING FILE %S\n",file);
+    help = true;
+    return 1;
+  }
+  fclose(Finput);
+
+  char * oneArg;
+  oneArg = strtok(buffer,"- ?");
+  while (oneArg != NULL)
+  {
+    if (strcmp(oneArg, "ma") == 0){ // Computing the MAM
+      buildMAM = true;
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "pa") == 0){ // Partitioning a graph
+      partition = true;
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "po") == 0){ // Postprocessing a partitioning
+      postproc = true;
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "mapa") == 0){ // Computing and partitioning the MAM
+      buildMAM = true;
+      partition = true;
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "papo") == 0){ // Partitioning a MAM and postprocessing the partition
+      partition = true;
+      postproc = true;
+      oneArg = strtok (NULL, "- ?");
+    }
+
+    // INPUT FILES
+    else if (strcmp(oneArg, "igraph") == 0){ // File with the edgelist of the directed graph
+      oneArg = strtok (NULL, "- ?");
+      InGraph = TStr(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "isym") == 0){ // File with the edgelist of the symmetrised graph
+      oneArg = strtok (NULL, "- ?");
+      InGraph = TStr(oneArg);
+      indir = false;
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "imam") == 0){ // File with the edgelist of the MAM
+      oneArg = strtok (NULL, "- ?");
+      InMAM = TStr(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "ipart") == 0){ // File with the partitioning obtained on MAM
+      oneArg = strtok (NULL, "- ?");
+      InPart = TStr(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    // OUTPUT FILES
+    else if (strcmp(oneArg, "omam") == 0){ // File in which the MAM is saved
+      oneArg = strtok (NULL, "- ?");
+      OutMAM = TStr(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "opart") == 0){ // File in which the (partial) partitioning is saved
+      oneArg = strtok (NULL, "- ?");
+      OutPart = TStr(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "oppart") == 0){ // File in which the partial partitioning is saved
+      oneArg = strtok (NULL, "- ?");
+      OutPTmp = TStr(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    // Other arguments
+    /*For building MAM*/
+    else if (strcmp(oneArg, "m") == 0){ // Motif used to build the MAM
+      oneArg = strtok (NULL, "- ?");
+      Motif = TStr(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "nth") == 0){ // Number of threads
+      oneArg = strtok (NULL, "- ?");
+      nbProc = atoi(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    /*For Partitioning*/
+    else if (strcmp(oneArg, "c") == 0){ // Resolution parameter
+      oneArg = strtok (NULL, "- ?");
+      alpha = atof(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "l") == 0){ // Level (fine or coarse)
+      oneArg = strtok (NULL, "- ?");
+      display_level = atoi(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    /*For Postproc*/
+    else if (strcmp(oneArg, "cc") == 0){ // Resolution Param for the postprocessing
+      oneArg = strtok (NULL, "- ?");
+      beta = atof(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "k") == 0){ // minimum size to forbid merging
+      oneArg = strtok (NULL, "- ?");
+      kmin = atoi(oneArg);
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "h") == 0){ // Postprocessing a partitioning
+      help = true;
+      oneArg = strtok (NULL, "- ?");
+    }
+    else if (strcmp(oneArg, "v") == 0){ // Postprocessing a partitioning
+      verbose = true;
+      oneArg = strtok (NULL, "- ?");
+    }
+    oneArg = strtok (NULL, "- ?");
+  }
+  if (not buildMAM && not partition && not postproc){
+    buildMAM  = true;
+    partition = true;
+    postproc  = true;
+  }
+
+  free (buffer);
+  return 0;
+}
+
 int ReadArgs(int argc, char **argv){
   int num_arg = 1;
   while( num_arg < argc){
-    if (strcmp(argv[num_arg], "-ma") == 0){ // Computing the MAM
+    if (strcmp(argv[num_arg], "-f") == 0){ // output files to store the MAM (binary format)
+      num_arg++;
+      readFromFile(argv[num_arg]);
+      return 0;
+    }
+    else if (strcmp(argv[num_arg], "-ma") == 0){ // Computing the MAM
       buildMAM = true;
     }
     else if (strcmp(argv[num_arg], "-pa") == 0){ // Partitioning a graph
@@ -561,147 +707,6 @@ void usage(){
     printf("-cc beta\t:Resolution parameter for the modularity to use in the postprocessing (Default: 1e-3).\n");
     printf("-k kmin\t\t:Maximum size of (meta)-nodes authorised to be merged in the postprocessing (Default: 1).\n");
   }
-}
-
-int readFromFile(TStr file){
-  FILE * Finput = fopen(file.CStr(),"r");
-  if (Finput == NULL){
-    printf("ERROR :: FILE %S NOT FOUND\n",file.CStr());
-    help = true;
-    return 1;
-  }
-  long lSize;
-  char * buffer;
-  size_t result;
-  fseek (Finput , 0 , SEEK_END);
-  lSize = ftell (Finput);
-  rewind (Finput);
-  buffer = (char*) malloc (sizeof(char)*lSize);
-  result = fread (buffer,1,lSize,Finput);
-  if (result != lSize) {
-    printf ("ERROR :: PROBLEM WHILE READING FILE %S\n",file.CStr());
-    help = true;
-    return 1;
-  }
-  fclose(Finput);
-
-  char * oneArg;
-  oneArg = strtok(buffer,"- ?");
-  while (oneArg != NULL)
-  {
-    if (strcmp(oneArg, "ma") == 0){ // Computing the MAM
-      buildMAM = true;
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "pa") == 0){ // Partitioning a graph
-      partition = true;
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "po") == 0){ // Postprocessing a partitioning
-      postproc = true;
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "mapa") == 0){ // Computing and partitioning the MAM
-      buildMAM = true;
-      partition = true;
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "papo") == 0){ // Partitioning a MAM and postprocessing the partition
-      partition = true;
-      postproc = true;
-      oneArg = strtok (NULL, "- ?");
-    }
-
-    // INPUT FILES
-    else if (strcmp(oneArg, "igraph") == 0){ // File with the edgelist of the directed graph
-      oneArg = strtok (NULL, "- ?");
-      InGraph = TStr(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "isym") == 0){ // File with the edgelist of the symmetrised graph
-      oneArg = strtok (NULL, "- ?");
-      InGraph = TStr(oneArg);
-      indir = false;
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "imam") == 0){ // File with the edgelist of the MAM
-      oneArg = strtok (NULL, "- ?");
-      InMAM = TStr(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "ipart") == 0){ // File with the partitioning obtained on MAM
-      oneArg = strtok (NULL, "- ?");
-      InPart = TStr(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    // OUTPUT FILES
-    else if (strcmp(oneArg, "omam") == 0){ // File in which the MAM is saved
-      oneArg = strtok (NULL, "- ?");
-      OutMAM = TStr(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "opart") == 0){ // File in which the (partial) partitioning is saved
-      oneArg = strtok (NULL, "- ?");
-      OutPart = TStr(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "oppart") == 0){ // File in which the partial partitioning is saved
-      oneArg = strtok (NULL, "- ?");
-      OutPTmp = TStr(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    // Other arguments
-    /*For building MAM*/
-    else if (strcmp(oneArg, "m") == 0){ // Motif used to build the MAM
-      oneArg = strtok (NULL, "- ?");
-      Motif = TStr(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "nth") == 0){ // Number of threads
-      oneArg = strtok (NULL, "- ?");
-      nbProc = atoi(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    /*For Partitioning*/
-    else if (strcmp(oneArg, "c") == 0){ // Resolution parameter
-      oneArg = strtok (NULL, "- ?");
-      alpha = atof(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "l") == 0){ // Level (fine or coarse)
-      oneArg = strtok (NULL, "- ?");
-      display_level = atoi(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    /*For Postproc*/
-    else if (strcmp(oneArg, "cc") == 0){ // Resolution Param for the postprocessing
-      oneArg = strtok (NULL, "- ?");
-      beta = atof(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "k") == 0){ // minimum size to forbid merging
-      oneArg = strtok (NULL, "- ?");
-      kmin = atoi(oneArg);
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "h") == 0){ // Postprocessing a partitioning
-      help = true;
-      oneArg = strtok (NULL, "- ?");
-    }
-    else if (strcmp(oneArg, "v") == 0){ // Postprocessing a partitioning
-      verbose = true;
-      oneArg = strtok (NULL, "- ?");
-    }
-    oneArg = strtok (NULL, "- ?");
-  }
-  if (not buildMAM && not partition && not postproc){
-    buildMAM  = true;
-    partition = true;
-    postproc  = true;
-  }
-
-  free (buffer);
-  return 0;
 }
 
 
