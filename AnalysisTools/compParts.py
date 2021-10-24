@@ -106,6 +106,8 @@ def visualComp(assign1,assign2,saveFigs=False,showFigs=True,visu='both',path2Fig
             fig.savefig(path2Fig+'.conf.'+figType)
 
         if showFigs:
+            ax.set_ylabel('1st Partition new labels',fontsize=10)
+            ax.set_xlabel('2nd Partition new labels',fontsize=10)
             fig.set_size_inches(6, 4)
             plt.show()
 
