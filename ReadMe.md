@@ -95,7 +95,17 @@ More precisely:
 
 ### Comparing Partitioning
 
-The Python program *Analysis/CompParts.py* enables visual comparison of two partitionings. Namely, it relabels partitions in both partitionings using the [Munkres algorithm](https://software.clapper.org/munkres/index.html), and plots visual comparisons of the partitionings:
+The Python3 program *Analysis/CompParts.py* enables visual comparison of two partitionings. Namely, it relabels partitions in both partitionings using the [Munkres algorithm](https://software.clapper.org/munkres/index.html), and plots visual comparisons of the partitionings:
 
-* In a staircase fashion (length of a segment of y-coordinate *i* being the number of nodes belonging to part *i*).
-* With the confusion matrix
+* In a staircase fashion (length of a segment of y-coordinate *i* being the number of nodes belonging to partition *i*).
+* With the confusion matrix.
+
+#### Requirements
+
+This comparison program is written using Python3, with the following required packages:
+
+* [matlplotlib](https://matplotlib.org/): ```python -m pip install matplotlib```
+* [munkres](https://software.clapper.org/munkres/index.html): ```python -m pip install munkres```
+* [scikit-learn](https://scikit-learn.org/stable/install.html): ```python -m pip install scikit-learn```
+
+It also requires [numpy](https://numpy.org/), but it comes as a dependancy of matplotlib and scikit-learn.
