@@ -109,3 +109,19 @@ This comparison program is written using Python3, with the following required pa
 * [scikit-learn](https://scikit-learn.org/stable/install.html): ```python -m pip install scikit-learn```
 
 It also requires [numpy](https://numpy.org/), but it comes as a dependancy of matplotlib and scikit-learn.
+
+#### Usage
+
+At the root:
+
+```python
+python AnalysisTools/compParts.py Path2Part1 Path2part2 [-outFig Path2Fig -ext extension]
+```
+
+where:
+* Path2Part1 is the path to the file containing the 1st partitioning, as returned by the software.
+* Path2Part2: same but for the 2nd partitioning.
+* Path2Fig is the name of the files into which the figures will be saved. By default, figures are shown but not saved.
+* extension expresses the format of the figures. Default is png.
+
+:bulb: If ```-outFig Path2Fig``` is provided, two figures will be saved, *path2Fig.part.extension* containing the staircase comparison, and *path2Fig.conf.extension* containing the confusion matrix.
