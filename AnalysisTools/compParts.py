@@ -119,10 +119,10 @@ if __name__=='__main__':
     parser.add_argument('File2Part2', metavar='FP2.part',
                         help='Path to the file containing the 2nd partition.')
     parser.add_argument('-outFig', metavar='FoldToFig', default ='',
-                        help='Path to the file to save the figure that compares the partitions.')
+                        help='Path to the file to save the figures that compares the partitions. By default, figures are shown but not saved.')
 
     parser.add_argument('-ext', metavar='extension', default ='png',
-                        help='Extension for the figures, if saved (typicallym png).')
+                        help='Extension for the figures, if saved (default is png).')
     args = parser.parse_args()
 
     if args.outFig:

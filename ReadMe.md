@@ -92,3 +92,10 @@ More precisely:
 :bulb: The default value is low (1e-3) to avoid the creation of new clusters in the final partition.
 
 * Parameter argument ```-k SizeMergeableMetaNode``` is the maximum number of nodes that a meta-node can contain to be mergeable to another meta-node.
+
+### Comparing Partitioning
+
+The Python program *Analysis/CompParts.py* enables visual comparison of two partitionings. Namely, it relabels partitions in both partitionings using the [Munkres algorithm](https://software.clapper.org/munkres/index.html), and plots visual comparisons of the partitionings:
+
+* In a staircase fashion (length of a segment of y-coordinate *i* being the number of nodes belonging to part *i*).
+* With the confusion matrix
