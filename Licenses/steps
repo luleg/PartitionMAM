@@ -14,3 +14,6 @@ python AnalysisTools\compParts.py Data\HierarchyGroundTruth.p Data\Hierarchy_E2.
 
 ./src/Pipeline/pipeline -mapa -igraph Data/Flows.nwk -omam Data/Flows_E2.mam -opart Data/Flows_E2.p -v
 ./src/Pipeline/pipeline -pa -isym Data/Flows_E2.mam -opart Data/Flows_E2.p -v -c 0.87
+
+python AnalysisTools\compParts.py Data\FlowsGroundTruth.p Data\Flows_T98.p -outFig Data\Flows_T98
+python AnalysisTools\compParts.py Data\FlowsGroundTruth.p Data\Flows_E2.p -outFig Data\Flows_E2
