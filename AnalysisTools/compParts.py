@@ -83,7 +83,7 @@ def visualComp(assign1,assign2,saveFigs=False,showFigs=True,visu='both',path2Fig
 
 
         ax.axis([0, n-0.5, -0.5, max(assign2)+0.5])
-        ax.set_ylabel('New cluster labels of the 2nd partition')
+        ax.set_ylabel('New labels of the 2nd partition')
         ax.legend()
         if (saveFigs):
             fig.set_size_inches(6, 4)
@@ -93,19 +93,16 @@ def visualComp(assign1,assign2,saveFigs=False,showFigs=True,visu='both',path2Fig
             fig.set_size_inches(6, 4)
             plt.show()
 
-
-
-
     if (visu!='part'):
         fig = plt.figure()
         ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
-        ConfusionMatrixDisplay.from_predictions(assign1,assign2,normalize=None,include_values=True,ax=ax,xticks_rotation='vertical')
-        ax.set_ylabel('1st Partition new labels')
-        ax.set_xlabel('2nd Partition new labels')
+        ConfusionMatrixDisplay.from_predictions(assign1,assign2,normalize='all',include_values=False,ax=ax,xticks_rotation='vertical')
+        ax.set_ylabel('1st Partition new labels',fontsize=25)
+        ax.set_xlabel('2nd Partition new labels',fontsize=25)
         ax.set_ylim([max(assign1)+0.5,-0.5])
         ax.set_xlim([-0.5,max(assign2)+0.5])
         if (saveFigs):
-            fig.set_size_inches(6, 4)
+            fig.set_size_inches(18, 12)
             fig.savefig(path2Fig+'.conf.'+figType)
 
         if showFigs:
