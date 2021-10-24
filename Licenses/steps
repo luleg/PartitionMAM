@@ -8,3 +8,9 @@
 
 python AnalysisTools\compParts.py Data\HierarchyGroundTruth.p Data\Hierarchy_Q2252.p -outFig Data\Hierarchy_Q2252
 python AnalysisTools\compParts.py Data\HierarchyGroundTruth.p Data\Hierarchy_E2.p -outFig Data\Hierarchy_E2
+
+./src/Pipeline/pipeline -igraph Data/Flows.nwk -omam Data/Flows_T98.mam -opart Data/Flows_T98.p -m T98 -v
+./src/Pipeline/pipeline -papo -igraph Data/Flows.nwk -imam Data/Flows_T98.mam -opart Data/Flows_T98.p -v -c 0.5
+
+./src/Pipeline/pipeline -mapa -igraph Data/Flows.nwk -omam Data/Flows_E2.mam -opart Data/Flows_E2.p -v
+./src/Pipeline/pipeline -pa -isym Data/Flows_E2.mam -opart Data/Flows_E2.p -v -c 0.87
