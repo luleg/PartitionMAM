@@ -1,0 +1,7 @@
+1- compiling
+2- apply the algorithm on hierarchy WITH -v:
+  A - motif Q2252: save the mam and observe the partitioning is not ok: too many classes =>
+    decrease res parameter and apply papo
+  B - with motif E2: same except that you can ask mapa
+3-Compare the partitioning
+4-Repeat with Flows
