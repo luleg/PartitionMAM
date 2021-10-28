@@ -9,6 +9,8 @@ Namely,
 2. This MAM then is partitioned via the [Louvain algorithm](https://arxiv.org/pdf/0803.0476.pdf).
 3. The disconnected nodes from the MAM are postprocessed by a homemade adaptation of Louvain.
 
+:clapper: No time for reading ? [A recorded tutorial of this software is available on Youtube](https://www.youtube.com/watch?v=v7d5jeu_aqc&t=47s&ab_channel=lucelegorrec)
+
 ## A Word about the Postprocessing Step
 
 The postprocessing is done by applying the Louvain algorithm on the directed network, symmetrised by forgetting edge directions, and in which nodes that belong to a same cluster have been merged into a unique meta-node. An additional constraint forbids the algorithm to put in a same cluster of the final partition two meta-nodes containing more than *k* nodes from the initial network.
